@@ -1,0 +1,73 @@
+/* 전체 페이지 기본 스타일 */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+}
+
+/* 폼 컨테이너 스타일 */
+#form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 폼 타이틀 */
+#form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* 폼 요소 공통 스타일 */
+.personal-info-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.personal-info-form input[type="text"],
+.personal-info-form input[type="date"],
+.personal-info-form input[type="time"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 성별 라디오 버튼 스타일 */
+.radio-group {
+  margin-bottom: 15px;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.radio-group label {
+  margin-right: 15px;
+  font-weight: normal;
+}
+
+/* 제출 버튼 스타일 */
+.personal-info-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.personal-info-form button:hover {
+  background-color: #0056b3;
+}
