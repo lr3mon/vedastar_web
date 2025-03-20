@@ -1,122 +1,95 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const container = document.getElementById('form-container');
+// 년도 옵션 생성 (1920년부터 현재 연도까지)
+const yearSelect = document.getElementById('year');
+const currentYear = new Date().getFullYear();
+for (let year = currentYear; year >= 1920; year--) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = `${year}년`;
+    yearSelect.appendChild(option);
+}
 
-  // 폼 생성
-  const form = document.createElement('form');
-  form.id = "personalInfoForm";
-  form.classList.add("personal-info-form");
+// 월 옵션 생성
+const monthSelect = document.getElementById('month');
+for (let month = 1; month <= 12; month++) {
+    const option = document.createElement('option');
+    option.value = month;
+    option.textContent = `${month}월`;
+    monthSelect.appendChild(option);
+}
 
-  // 폼 타이틀
-  const title = document.createElement('h1');
-  title.textContent = "개인정보 수집 폼";
-  form.appendChild(title);
+// 일 옵션 생성 (선택한 월의 마지막 날짜 기준)
+function updateDays() {
+    const daySelect = document.getElementById('day');
+    const selectedYear = parseInt(yearSelect.value, 10) || currentYear;
+    const selectedMonth = parseInt(monthSelect.value, 10) || 1;
+    const lastDay = new Date(selectedYear, selectedMonth, 0).getDate();
 
-  // 입력 필드 생성 함수
-  function createInputField(labelText, inputType, inputId, inputName) {
-    const label = document.createElement('label');
-    label.htmlFor = inputId;
-    label.textContent = labelText;
-    
-    const input = document.createElement('input');
-    input.type = inputType;
-    input.id = inputId;
-    input.name = inputName;
-    input.required = true;
-    
-    form.appendChild(label);
-    form.appendChild(input);
-  }
+    daySelect.innerHTML = '<option value="" disabled selected>일</option>';
+    for (let day = 1; day <= lastDay; day++) {
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = `${day}일`;
+        daySelect.appendChild(option);
+    }
+}
+yearSelect.addEventListener('change', updateDays);
+monthSelect.addEventListener('change', updateDays);
+updateDays();
 
-  // 성
-  createInputField("성:", "text", "surname", "surname");
+// 시간 옵션 생성
+const hourSelect = document.getElementById('hour');
+for (let hour = 0; hour < 24; hour++) {
+    const option = document.createElement('option');
+    option.value = hour;
+    option.textContent = `${hour}시`;
+    hourSelect.appendChild(option);
+}
 
-  // 이름
-  createInputField("이름:", "text", "firstname", "firstname");
+// 분 옵션 생성 (5분 간격)
+const minuteSelect = document.getElementById('minute');
+for (let minute = 0; minute < 60; minute += 5) {
+    const option = document.createElement('option');
+    option.value = minute;
+    option.textContent = `${minute}분`;
+    minuteSelect.appendChild(option);
+}
 
-  // 성별 (라디오 버튼 그룹)
-  const genderLabel = document.createElement('label');
-  genderLabel.textContent = "성별:";
-  form.appendChild(genderLabel);
-
-  const radioGroup = document.createElement('div');
-  radioGroup.classList.add("radio-group");
-
-  const genders = [
-    { id: "male", value: "male", label: "남성" },
-    { id: "female", value: "female", label: "여성" }
-  ];
-
-  genders.forEach(g => {
-    const radioInput = document.createElement('input');
-    radioInput.type = "radio";
-    radioInput.id = g.id;
-    radioInput.name = "gender";
-    radioInput.value = g.value;
-    radioInput.required = true;
-    
-    const radioLabel = document.createElement('label');
-    radioLabel.htmlFor = g.id;
-    radioLabel.textContent = g.label;
-    
-    radioGroup.appendChild(radioInput);
-    radioGroup.appendChild(radioLabel);
-  });
-  form.appendChild(radioGroup);
-
-  // 생년월일
-  createInputField("생년월일:", "date", "birthdate", "birthdate");
-
-  // 태어난 시간
-  createInputField("태어난 시간:", "time", "birthtime", "birthtime");
-
-  // 태어난 위치
-  createInputField("태어난 위치:", "text", "birthplace", "birthplace");
-
-  // 제출 버튼
-  const submitButton = document.createElement('button');
-  submitButton.type = "submit";
-  submitButton.textContent = "제출";
-  form.appendChild(submitButton);
-
-  // 폼 제출 이벤트 처리
-  form.addEventListener('submit', function(event) {
+// 폼 제출 처리
+document.getElementById('astrologyForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    
+
+    // 입력값 수집
+    const name = document.getElementById('name').value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;
+    const year = document.getElementById('year').value;
+    const month = document.getElementById('month').value;
+    const day = document.getElementById('day').value;
+    const calendar = document.querySelector('input[name="calendar"]:checked').value;
+    const hour = document.getElementById('hour').value;
+    const minute = document.getElementById('minute').value;
+    const birthplace = document.getElementById('birthplace').value;
+    const phone = document.getElementById('phone').value;
+
+    // 필수 필드 검증
+    if (!name || !year || !month || !day || !hour || !minute || !birthplace || !phone) {
+        alert('모든 정보를 입력해주세요.');
+        return;
+    }
+
+    // 데이터 구성
     const formData = {
-      surname: document.getElementById('surname').value,
-      firstname: document.getElementById('firstname').value,
-      gender: document.querySelector('input[name="gender"]:checked').value,
-      birthdate: document.getElementById('birthdate').value,
-      birthtime: document.getElementById('birthtime').value,
-      birthplace: document.getElementById('birthplace').value
+        name,
+        gender,
+        birthdate: `${year}-${month}-${day}`,
+        calendar,
+        birthtime: `${hour}:${minute}`,
+        birthplace,
+        phone
     };
 
-    // Google Apps Script 엔드포인트로 데이터 전송
-    fetch('https://script.google.com/macros/s/AKfycbzGJPsf3RXm27IqndYrffC3BrhRgpLR_iHPgCFFMx0u_bUurMmhjbmzpXbPFAOwrUaa/exec', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(response => {
-      console.log("응답 상태 코드:", response.status);
-      if (!response.ok) {
-        console.error("서버 응답 에러:", response);
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("서버 응답:", data);
-      alert(data.message);
-      form.reset();
-    })
-    .catch(error => {
-      console.error("데이터 전송 중 오류 발생:", error);
-      alert("데이터 전송 중 오류가 발생했습니다. 자세한 내용은 콘솔을 확인하세요.");
-    });
-  }); // end of submit event listener
+    console.log("수집된 데이터:", formData);
+    alert("정보가 성공적으로 제출되었습니다. 결제 페이지로 이동합니다.");
 
-  container.appendChild(form);
+    // 실제 구현 시 서버로 데이터를 전송하고 결제 페이지로 리디렉션 처리
+    // 예: window.location.href = "payment.html";
 });

@@ -1,73 +1,213 @@
-/* 전체 페이지 기본 스타일 */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f0f0f0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f8f8f8;
   margin: 0;
-  padding: 20px;
+  padding: 0;
+  color: #333;
+  line-height: 1.6;
 }
-
-/* 폼 컨테이너 스타일 */
-#form-container {
-  max-width: 500px;
+.container {
+  max-width: 480px;
   margin: 0 auto;
   background-color: #fff;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
-
-/* 폼 타이틀 */
-#form-container h1 {
+.header {
+  background-color: #6b38fb;
+  color: white;
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  padding: 15px 0;
+  position: relative;
 }
-
-/* 폼 요소 공통 스타일 */
-.personal-info-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
-
-.personal-info-form input[type="text"],
-.personal-info-form input[type="date"],
-.personal-info-form input[type="time"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* 성별 라디오 버튼 스타일 */
-.radio-group {
-  margin-bottom: 15px;
-}
-
-.radio-group input[type="radio"] {
-  margin-right: 5px;
-}
-
-.radio-group label {
-  margin-right: 15px;
+.header h1 {
+  margin: 0;
+  font-size: 18px;
   font-weight: normal;
 }
-
-/* 제출 버튼 스타일 */
-.personal-info-form button {
+/* 배너 이미지 스타일 */
+.banner-image {
   width: 100%;
-  padding: 12px;
-  background-color: #007BFF;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: block;
 }
-
-.personal-info-form button:hover {
-  background-color: #0056b3;
+/* 소개 콘텐츠 스타일 */
+.intro-content {
+  padding: 0;
+}
+.intro-section {
+  text-align: center;
+  padding: 20px 15px;
+  border-bottom: 1px solid #eee;
+}
+.intro-section h2 {
+  color: #6b38fb;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.intro-section p {
+  font-size: 14px;
+  color: #666;
+  margin: 10px 0;
+}
+.intro-highlight {
+  background-color: #f0ebff;
+  padding: 20px 15px;
+  text-align: center;
+}
+.intro-highlight h3 {
+  color: #6b38fb;
+  margin-top: 0;
+}
+.benefit-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 15px 0;
+}
+.benefit-list li {
+  padding: 8px 0;
+  font-size: 14px;
+  position: relative;
+  padding-left: 20px;
+  text-align: left;
+}
+.benefit-list li:before {
+  content: "✓";
+  color: #6b38fb;
+  position: absolute;
+  left: 0;
+}
+/* 입력 폼 스타일 */
+.form-container {
+  padding: 20px;
+  background-color: #fff;
+  border-top: 5px solid #6b38fb;
+}
+.form-title {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 22px;
+  font-weight: bold;
+}
+.form-subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #777;
+  font-size: 14px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group .title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+.input-field {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+.radio-group {
+  display: flex;
+  margin-top: 10px;
+}
+.radio-item {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+.radio-item input {
+  margin-right: 5px;
+}
+.radio-label {
+  font-size: 15px;
+}
+.submit-btn {
+  background-color: #6b38fb;
+  color: white;
+  border: none;
+  padding: 15px 0;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+.submit-btn:hover {
+  background-color: #5a2de0;
+}
+.note {
+  font-size: 13px;
+  color: #888;
+  margin-top: 5px;
+}
+.birthdate-container {
+  display: flex;
+  gap: 10px;
+}
+.birthdate-container select {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+.birthtime-container {
+  display: flex;
+  gap: 10px;
+}
+.birthtime-container select {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+/* 추가 스타일 */
+.price-info {
+  background-color: #f9f8ff;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 20px 0;
+  text-align: center;
+}
+.price-info .original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 16px;
+}
+.price-info .discount-price {
+  color: #ff4500;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+.price-info .discount-tag {
+  background-color: #ff4500;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+.testimonial {
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+.testimonial .stars {
+  color: #ffb400;
+  margin-bottom: 5px;
+}
+.testimonial .user-info {
+  color: #999;
+  font-size: 12px;
+  margin-top: 10px;
 }
