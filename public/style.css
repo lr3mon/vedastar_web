@@ -213,10 +213,8 @@ body {
 }
 /* PayPal 버튼 스타일 (인라인 스타일 제거 후 별도 클래스 추가) */
 .paypal-form {
-  display: inline-grid;
-  justify-items: center;
-  align-content: start;
-  gap: 0.5rem;
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
 }
 .pp-button {
@@ -227,8 +225,8 @@ body {
   padding: 0 2rem;
   height: 2.625rem;
   font-weight: bold;
-  background-color: #FFD140;
-  color: #000000;
+  background-color: #1B1F3B;
+  color: #C5A654;
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.25rem;
