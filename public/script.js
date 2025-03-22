@@ -47,7 +47,7 @@ for (let hour = 0; hour < 24; hour++) {
 
 // 분 옵션 생성 (5분 간격)
 const minuteSelect = document.getElementById('minute');
-for (let minute = 0; minute < 60; minute += 5) {
+for (let minute = 0; minute < 60; minute += 1) {
   const option = document.createElement('option');
   option.value = minute;
   option.textContent = `${minute}분`;
