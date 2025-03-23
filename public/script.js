@@ -54,10 +54,50 @@ for (let minute = 0; minute < 60; minute++) {
   minuteSelect.appendChild(option);
 }
 
-// 기존 astrologyForm 제출 이벤트 (개별적으로 데이터를 전송하는 경우)
-// 필요에 따라 이 이벤트 리스너를 제거할 수도 있습니다.
+// 폼 유효성 검사 함수
+function validateForm() {
+  const name = document.getElementById('name').value;
+  const gender = document.querySelector('input[name="gender"]:checked');
+  const year = document.getElementById('year').value;
+  const month = document.getElementById('month').value;
+  const day = document.getElementById('day').value;
+  const calendar = document.querySelector('input[name="calendar"]:checked');
+  const email = document.getElementById('email').value;
+  
+  if (!name) {
+    alert('이름을 입력해주세요.');
+    return false;
+  }
+  
+  if (!gender) {
+    alert('성별을 선택해주세요.');
+    return false;
+  }
+  
+  if (!year || !month || !day) {
+    alert('생년월일을 선택해주세요.');
+    return false;
+  }
+  
+  if (!calendar) {
+    alert('양력/음력을 선택해주세요.');
+    return false;
+  }
+  
+  if (!email) {
+    alert('이메일을 입력해주세요.');
+    return false;
+  }
+  
+  return true;
+}
+
+// 일반 폼 제출 이벤트
 document.getElementById('astrologyForm').addEventListener('submit', function(event) {
   event.preventDefault();
+  
+  if (!validateForm()) return;
+  
   const formData = {
     name: document.getElementById('name').value,
     gender: document.querySelector('input[name="gender"]:checked').value,
@@ -67,17 +107,25 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
     birthplace: document.getElementById('birthplace').value,
     email: document.getElementById('email').value
   };
+  
   console.log("수집된 데이터:", formData);
-  // 예를 들어, 단순 저장만 수행하고자 할 경우 아래와 같이 할 수 있음.
-  fetch('https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_URL/exec', {
+  
+  // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
+  fetch('https://script.google.com/macros/s/AKfycbzKVMERFpwiWsLpocVzl9t7N9QPt6TBBL9WUOnxt0-BM8JMnXu-DuGsDgC__qtJR5ux/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log("서버 응답:", data);
-    alert(data.message);
+  .then(response => response.text())
+  .then(text => {
+    try {
+      const data = JSON.parse(text);
+      console.log("서버 응답:", data);
+      alert(data.message || '데이터가 성공적으로 저장되었습니다.');
+    } catch (e) {
+      console.error("응답 파싱 오류:", e);
+      alert('요청은 성공했지만 응답을 처리하는 데 문제가 있습니다.');
+    }
   })
   .catch(error => {
     console.error("데이터 전송 중 오류 발생:", error);
@@ -85,11 +133,12 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   });
 });
 
-// PayPal 결제 버튼을 포함한 폼 (클래스명: paypal-form)에 대한 이벤트 리스너
+// PayPal 결제 폼 제출 이벤트
 document.querySelector('.paypal-form').addEventListener('submit', function(event) {
   event.preventDefault();
-
-  // astrologyForm에서 입력한 데이터를 수집
+  
+  if (!validateForm()) return;
+  
   const formData = {
     name: document.getElementById('name').value,
     gender: document.querySelector('input[name="gender"]:checked').value,
@@ -99,21 +148,28 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
     birthplace: document.getElementById('birthplace').value,
     email: document.getElementById('email').value
   };
-
+  
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", formData);
-
-  // Google Apps Script 엔드포인트로 데이터 전송
-  fetch('https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_URL/exec', {
+  
+  // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
+  fetch('https://script.google.com/macros/s/AKfycbzKVMERFpwiWsLpocVzl9t7N9QPt6TBBL9WUOnxt0-BM8JMnXu-DuGsDgC__qtJR5ux/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log("서버 응답:", data);
-    alert(data.message);
-    // 데이터 저장 후 PayPal 결제 페이지를 새 탭에서 열기
-    window.open('https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8', '_blank');
+  .then(response => response.text())
+  .then(text => {
+    try {
+      const data = JSON.parse(text);
+      console.log("서버 응답:", data);
+      alert(data.message || '데이터가 성공적으로 저장되었습니다.');
+      
+      // 데이터 저장 후 PayPal 결제 페이지를 새 탭에서 열기
+      window.open('https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8', '_blank');
+    } catch (e) {
+      console.error("응답 파싱 오류:", e);
+      alert('요청은 성공했지만 응답을 처리하는 데 문제가 있습니다.');
+    }
   })
   .catch(error => {
     console.error("데이터 전송 중 오류 발생:", error);
