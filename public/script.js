@@ -45,9 +45,9 @@ for (let hour = 0; hour < 24; hour++) {
   hourSelect.appendChild(option);
 }
 
-// 분 옵션 생성 (5분 간격)
+// 분 옵션 생성 (1분 간격)
 const minuteSelect = document.getElementById('minute');
-for (let minute = 0; minute < 60; minute += 1) {
+for (let minute = 0; minute < 60; minute++) {
   const option = document.createElement('option');
   option.value = minute;
   option.textContent = `${minute}분`;
@@ -59,37 +59,35 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   event.preventDefault();
 
   // 입력값 수집
-  const name = document.getElementById('name').value;
-  const gender = document.querySelector('input[name="gender"]:checked').value;
-  const year = document.getElementById('year').value;
-  const month = document.getElementById('month').value;
-  const day = document.getElementById('day').value;
-  const calendar = document.querySelector('input[name="calendar"]:checked').value;
-  const hour = document.getElementById('hour').value;
-  const minute = document.getElementById('minute').value;
-  const birthplace = document.getElementById('birthplace').value;
-  const email = document.getElementById('email').value;
-
-  // 필수 필드 검증 (required 속성으로 처리되므로 추가 검증은 선택사항)
-  if (!name || !year || !month || !day || !hour || !minute || !birthplace || !email) {
-    alert('모든 정보를 입력해주세요.');
-    return;
-  }
-
-  // 데이터 구성
   const formData = {
-    name,
-    gender,
-    birthdate: `${year}-${month}-${day}`,
-    calendar,
-    birthtime: `${hour}:${minute}`,
-    birthplace,
-    email
+    name: document.getElementById('name').value,
+    gender: document.querySelector('input[name="gender"]:checked').value,
+    birthdate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
+    calendar: document.querySelector('input[name="calendar"]:checked').value,
+    birthtime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
+    birthplace: document.getElementById('birthplace').value,
+    email: document.getElementById('email').value
   };
 
   console.log("수집된 데이터:", formData);
-  alert("정보가 성공적으로 제출되었습니다. 결제 페이지로 이동합니다.");
 
-  // 실제 구현 시 서버로 데이터를 전송하고 결제 페이지로 리디렉션 처리
-  // 예: window.location.href = "payment.html";
+  // Google Apps Script 엔드포인트 URL로 데이터 전송
+  fetch('https://script.google.com/macros/s/AKfycbwENRBvYtetdc2PqzJDr-PByPr1p7njBnYLACA5-leFFVfDXUBxrwT9ATdwmjS0acK4/exec', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("서버 응답:", data);
+    alert(data.message);
+    // 필요 시 결제 페이지 등으로 리디렉션
+    // 예: window.location.href = "payment.html";
+  })
+  .catch(error => {
+    console.error("데이터 전송 중 오류 발생:", error);
+    alert("데이터 전송 중 오류가 발생했습니다.");
+  });
 });
