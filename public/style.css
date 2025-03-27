@@ -16,7 +16,7 @@ body {
 /* 입력 폼 스타일 */
 .form-container {
   padding: 20px;
-  background-color: #fff;
+  background-color: #000000;
 }
 .form-title {
   text-align: center;
@@ -47,7 +47,11 @@ body {
   border-radius: 4px;
   font-size: 16px;
   box-sizing: border-box;
-  background-color: #f9f9f9;
+  background-color: #444444;
+}
+.input-field:focus {
+  border-color: #C5A654;
+  outline: none;
 }
 .radio-group {
   display: flex;
