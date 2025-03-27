@@ -1,6 +1,6 @@
 body {
   font-family: 'Noto Sans KR', sans-serif;
-  background-color: #f8f8f8;
+  background-color: #000000;
   margin: 0;
   padding: 0;
   color: #333;
@@ -9,7 +9,7 @@ body {
 .container {
   max-width: 480px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #000000;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 .header {
