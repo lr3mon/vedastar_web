@@ -17,7 +17,6 @@ body {
 .form-container {
   padding: 20px;
   background-color: #fff;
-  border-top: 5px solid #6b38fb;
 }
 .form-title {
   text-align: center;
@@ -105,4 +104,26 @@ body {
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #f9f9f9;
+}
+
+/* PayPal 버튼 스타일 (인라인 스타일 제거 후 별도 클래스 추가) */
+.paypal-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.pp-button {
+  text-align: center;
+  border: none;
+  border-radius: 0.25rem;
+  min-width: 11.625rem;
+  padding: 0 2rem;
+  height: 2.625rem;
+  font-weight: bold;
+  background-color: #1B1F3B;
+  color: #C5A654;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  cursor: pointer;
 }
