@@ -151,8 +151,8 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", formData);
   
-  // 실제 배포된 Google Apps Script 웹 앱 URL을 사용
-  fetch('https://script.google.com/macros/s/AKfycbzKVMERFpwiWsLpocVzl9t7N9QPt6TBBL9WUOnxt0-BM8JMnXu-DuGsDgC__qtJR5ux/exec', {
+  // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
+  fetch('https://0z3b4ewt1j.execute-api.ap-southeast-2.amazonaws.com/vedastar_web_proxy', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
