@@ -152,7 +152,7 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", formData);
   
   // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
-  fetch('https://13.211.130.215:22/proxy', {
+  fetch('https://13.211.130.215:443/proxy', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
