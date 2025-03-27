@@ -5,8 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>인도 점성술 운세 - 당신의 운명을 알아보세요</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+    .scroll-container {
+      margin: 50px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+    .scroll-text {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      margin: 50px 0;
+      font-size: 1.5em;
+    }
+    .scroll-text.visible {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
+  <div class="scroll-container">
+    <p class="scroll-text">Where do you stand right now on your life’s journey?</p>
+    <p class="scroll-text">Sometimes, even with all your effort, you feel stuck, unable to move forward.</p>
+    <p class="scroll-text">Here, we introduce you to a special Indian astrology that reads your destiny through the language of the stars.</p>
+    <p class="scroll-text">From the moment you were born, the stars have held a special message just for you.</p>
+    <p class="scroll-text">Vedastar will illuminate your life path with the wisdom of ancient traditions.</p>
+    <p class="scroll-text">Love, career, health, wealth… All the answers you’ve been searching for are right here.</p>
+    <p class="scroll-text">Unlock the secrets of the stars today and discover your true destiny.</p>
+    <p class="scroll-text">No longer walk life’s journey alone. Let the stars be your guide.</p>
+  </div>
+  
   <div class="container">
     <div class="header">
       <h1>인도 점성술 운세</h1>
@@ -148,6 +179,23 @@
     </div>
   </div>
 
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const scrollTexts = document.querySelectorAll('.scroll-text');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    scrollTexts.forEach(element => {
+      observer.observe(element);
+    });
+  });
+  </script>
+  
   <script src="script.js"></script>
 </body>
 </html>
