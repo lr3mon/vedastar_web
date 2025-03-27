@@ -91,12 +91,19 @@ body {
   display: flex;
   gap: 10px;
 }
-.birthdate-container select {
+.birthdate-container select,
+.birthtime-container select {
   flex: 1;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: #444444;
+  color: white;
+}
+.birthdate-container select:focus,
+.birthtime-container select:focus {
+  border-color: #C5A654;
+  outline: none;
 }
 .birthtime-container {
   display: flex;
@@ -107,7 +114,12 @@ body {
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: #444444;
+  color: white;
+}
+.birthtime-container select:focus {
+  border-color: #C5A654;
+  outline: none;
 }
 
 /* PayPal 버튼 스타일 (인라인 스타일 제거 후 별도 클래스 추가) */
