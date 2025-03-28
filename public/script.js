@@ -151,7 +151,9 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", formData);
   
-  // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
+  // 클릭 이벤트에서 즉시 새 창 열기 (팝업 차단 방지)
+  const paypalWindow = window.open('', '_blank');
+  
   fetch('https://0z3b4ewt1j.execute-api.ap-southeast-2.amazonaws.com/vedastar_web_proxy', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -164,15 +166,17 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
       console.log("서버 응답:", data);
       alert(data.message || '데이터가 성공적으로 저장되었습니다.');
       
-      // 데이터 저장 후 PayPal 결제 페이지를 새 탭에서 열기
-      window.open('https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8', '_blank');
+      // 데이터 저장 후 PayPal 결제 페이지로 이동
+      paypalWindow.location.href = 'https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8';
     } catch (e) {
       console.error("응답 파싱 오류:", e);
       alert('요청은 성공했지만 응답을 처리하는 데 문제가 있습니다.');
+      paypalWindow.close(); // 에러 발생 시 창 닫기
     }
   })
   .catch(error => {
     console.error("데이터 전송 중 오류 발생:", error);
     alert("데이터 전송 중 오류가 발생했습니다.");
+    paypalWindow.close(); // 오류 발생 시 창 닫기
   });
 });
