@@ -108,7 +108,7 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
     email: document.getElementById('email').value
   };
   
-  console.log("수집된 데이터:", formData);
+  console.log("수집된 데이터:", JSON.stringify(formData));
   
   // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
   fetch('https://script.google.com/macros/s/AKfycbzKVMERFpwiWsLpocVzl9t7N9QPt6TBBL9WUOnxt0-BM8JMnXu-DuGsDgC__qtJR5ux/exec', {
@@ -149,7 +149,7 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
     email: document.getElementById('email').value
   };
   
-  console.log("PayPal 버튼 클릭 시 수집된 데이터:", formData);
+  console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
   
   // 클릭 이벤트에서 즉시 새 창 열기 (팝업 차단 방지)
   const paypalWindow = window.open('', '_blank');
