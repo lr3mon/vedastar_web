@@ -166,6 +166,14 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   };
   
   console.log("수집된 데이터:", JSON.stringify(formData));
+
+  // 쿼리 스트링 생성: 각 필드를 URL 인코딩하여 추가합니다.
+  const queryString = Object.keys(formData)
+  .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`)
+  .join('&');
+
+  // confirmation 페이지로 이동할 때 쿼리 스트링을 붙여 전달합니다.
+  window.location.href = `confirmation.html?${queryString}`;
   
   // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
   fetch('https://script.google.com/macros/s/AKfycbzp5bSntkBP-rdUK-Mmx1JtpcZowGJyA8Q6XmGMwXElyGCW6QB33B8UecaST2Iot66D/exec', {
