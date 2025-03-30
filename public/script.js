@@ -168,7 +168,7 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   console.log("수집된 데이터:", JSON.stringify(formData));
   
   // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
-  fetch('https://script.google.com/macros/s/AKfycbyAtAPLtcUKho4sFwYns17h-7gkGRh4n-_nbPFesOwp3q2jO6ND-hy3UiCqa1Dx4RDy/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbzp5bSntkBP-rdUK-Mmx1JtpcZowGJyA8Q6XmGMwXElyGCW6QB33B8UecaST2Iot66D/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
