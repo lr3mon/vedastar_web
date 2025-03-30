@@ -13,9 +13,9 @@ body {
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 .hero-section {
-  height: 50vh; /* 높이를 50%로 줄임 */
+  height: 100vh; /* 화면 전체 높이로 설정 */
   background: url('assets/images/vedastarLogo.png') no-repeat center center;
-  background-size: contain; /* 이미지가 작게 보이도록 설정 */
+  background-size: contain; /* 이미지 크기는 'contain'으로 유지, 필요에 따라 'cover'로 변경 가능 */
   position: relative;
 }
 
