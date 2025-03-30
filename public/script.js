@@ -158,10 +158,10 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   
   const formData = {
     name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
-    birthLocation: document.getElementById('birthLocation').value.trim(), // 입력 필드의 id가 "birthLocation"인지 확인
-    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '', // 라디오 버튼 그룹에서 선택된 값
+    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`, // 대문자 D 사용
+    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`, // 대문자 T 사용
+    birthLocation: document.getElementById('birthLocation').value.trim(),
+    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '',
     email: document.getElementById('email').value.trim()
   };
   
@@ -198,10 +198,10 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   
   const formData = {
     name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
-    birthLocation: document.getElementById('birthLocation').value.trim(), // 입력 필드의 id가 "birthLocation"인지 확인
-    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '', // 라디오 버튼 그룹에서 선택된 값
+    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`, // 대문자 D 사용
+    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`, // 대문자 T 사용
+    birthLocation: document.getElementById('birthLocation').value.trim(),
+    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '',
     email: document.getElementById('email').value.trim()
   };
   
