@@ -57,6 +57,34 @@ for (let minute = 0; minute < 60; minute++) {
 const birthLocationInput = document.getElementById('birthLocation');
 const suggestionBox = document.createElement('ul');
 suggestionBox.id = 'location-suggestions';
+
+
+// 스타일 바로 삽입 (불릿 제거 + 디자인)
+const style = document.createElement('style');
+style.textContent = `
+  #location-suggestions {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: white;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+  }
+  #location-suggestions li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  #location-suggestions li:hover {
+    background-color: #333;
+  }
+`;
+document.head.appendChild(style);
+
+
 birthLocationInput.parentElement.style.position = 'relative';
 birthLocationInput.parentElement.appendChild(suggestionBox);
 
@@ -243,3 +271,12 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
     paypalWindow.close(); // Close on error
   });
 });
+
+function openPayPalWindow() {
+  // 원하는 크기로 팝업 창 열기
+  const url = "https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8";
+  const windowName = "PayPalWindow";
+  const specs = "width=600,height=800,scrollbars=yes,resizable=yes";
+
+  window.open(url, windowName, specs);
+}
