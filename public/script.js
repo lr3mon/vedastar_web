@@ -54,38 +54,46 @@ for (let minute = 0; minute < 60; minute++) {
   minuteSelect.appendChild(option);
 }
 
-// 폼 유효성 검사 함수
+// 폼 유효성 검사
+// 모든 필드가 올바르게 입력되었는지 확인하는 함수
 function validateForm() {
   const name = document.getElementById('name').value;
-  const gender = document.querySelector('input[name="gender"]:checked');
   const year = document.getElementById('year').value;
   const month = document.getElementById('month').value;
   const day = document.getElementById('day').value;
-  const calendar = document.querySelector('input[name="calendar"]:checked');
+  const hour = document.getElementById('hour').value;
+  const minute = document.getElementById('minute').value;
+  const birthLocation = document.getElementById('birthLocation').value;
+  const marriageStatus = document.querySelector('input[name="marriageStatus"]:checked');
   const email = document.getElementById('email').value;
   
   if (!name) {
-    alert('이름을 입력해주세요.');
-    return false;
-  }
-  
-  if (!gender) {
-    alert('성별을 선택해주세요.');
+    alert('Please enter your name.');
     return false;
   }
   
   if (!year || !month || !day) {
-    alert('생년월일을 선택해주세요.');
+    alert('Please select your birth date.');
     return false;
   }
   
-  if (!calendar) {
-    alert('양력/음력을 선택해주세요.');
+  if (!hour || !minute) {
+    alert('Please select your birth time.');
+    return false;
+  }
+  
+  if (!birthLocation) {
+    alert('Please enter your birth location.');
+    return false;
+  }
+  
+  if (!marriageStatus) {
+    alert('Please select your marriage status.');
     return false;
   }
   
   if (!email) {
-    alert('이메일을 입력해주세요.');
+    alert('Please enter your email.');
     return false;
   }
   
@@ -100,11 +108,10 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   
   const formData = {
     name: document.getElementById('name').value,
-    gender: document.querySelector('input[name="gender"]:checked').value,
     birthdate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    calendar: document.querySelector('input[name="calendar"]:checked').value,
     birthtime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
-    birthplace: document.getElementById('birthplace').value,
+    birthLocation: document.getElementById('birthLocation').value,
+    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked').value,
     email: document.getElementById('email').value
   };
   
@@ -141,11 +148,10 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   
   const formData = {
     name: document.getElementById('name').value,
-    gender: document.querySelector('input[name="gender"]:checked').value,
     birthdate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    calendar: document.querySelector('input[name="calendar"]:checked').value,
     birthtime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
-    birthplace: document.getElementById('birthplace').value,
+    birthLocation: document.getElementById('birthLocation').value,
+    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked').value,
     email: document.getElementById('email').value
   };
   

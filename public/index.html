@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>인도 점성술 운세 - 당신의 운명을 알아보세요</title>
+  <title>Vedic Astrology Reading – Discover Your Destin</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -47,86 +47,78 @@
       <p class="scroll-text">No longer walk life’s journey alone. Let the stars be your guide.</p>
     </div>
     
-    <!-- 가격 정보 및 입력 폼 -->
+    <!-- Application form -->
     <div class="form-container">
-      <div class="form-title">인도 점성술 운세 신청하기</div>
-      <div class="form-subtitle">정확한 정보를 입력하시면 더 정확한 운세 결과를 받아보실 수 있습니다.</div>
+      <div class="form-title">Apply for a Vedic Astrology Reading</div>
+      <div class="form-subtitle">Please provide accurate information for a more precise reading.</div>
       
       <form id="astrologyForm">
+        <!-- Name -->
         <div class="form-group">
-          <div class="title">이름</div>
-          <input type="text" class="input-field" id="name" name="name" placeholder="이름을 입력해주세요" required>
+          <div class="title">Name</div>
+          <input type="text" class="input-field" id="name" name="name" placeholder="Please enter your name" required>
         </div>
         
+        <!-- Birth Date (year, month, day) -->
         <div class="form-group">
-          <div class="title">성별</div>
-          <div class="radio-group">
-            <div class="radio-item">
-              <input type="radio" id="male" name="gender" value="male" checked>
-              <label for="male" class="radio-label">남자</label>
-            </div>
-            <div class="radio-item">
-              <input type="radio" id="female" name="gender" value="female">
-              <label for="female" class="radio-label">여자</label>
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <div class="title">생년월일</div>
+          <div class="title">Birth Date</div>
           <div class="birthdate-container">
             <select id="year" name="year" required>
-              <option value="" disabled selected>년도</option>
+              <option value="" disabled selected>Year</option>
             </select>
             <select id="month" name="month" required>
-              <option value="" disabled selected>월</option>
+              <option value="" disabled selected>Month</option>
             </select>
             <select id="day" name="day" required>
-              <option value="" disabled selected>일</option>
+              <option value="" disabled selected>Day</option>
             </select>
           </div>
         </div>
         
+        <!-- Birth Time (hour, minute) -->
         <div class="form-group">
-          <div class="title">양력/음력</div>
-          <div class="radio-group">
-            <div class="radio-item">
-              <input type="radio" id="solar" name="calendar" value="solar" checked>
-              <label for="solar" class="radio-label">양력</label>
-            </div>
-            <div class="radio-item">
-              <input type="radio" id="lunar" name="calendar" value="lunar">
-              <label for="lunar" class="radio-label">음력</label>
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <div class="title">태어난 시간</div>
+          <div class="title">Birth Time</div>
           <div class="birthtime-container">
             <select id="hour" name="hour" required>
-              <option value="" disabled selected>시</option>
+              <option value="" disabled selected>Hour</option>
             </select>
             <select id="minute" name="minute" required>
-              <option value="" disabled selected>분</option>
+              <option value="" disabled selected>Minute</option>
             </select>
           </div>
-          <p class="note">정확한 시간을 모르시면 오전 12시를 선택해주세요.</p>
+          <p class="note">If you’re not sure, select 12 AM.</p>
         </div>
         
+        <!-- Birth Location -->
         <div class="form-group">
-          <div class="title">태어난 장소</div>
-          <input type="text" class="input-field" id="birthplace" name="birthplace" placeholder="예) 서울, 대한민국" required>
-          <p class="note">정확한 장소를 입력하시면 더 정확한 결과를 받아보실 수 있습니다.</p>
+          <div class="title">Birth Location</div>
+          <input type="text" class="input-field" id="birthLocation" name="birthLocation" placeholder="e.g.) Seoul, South Korea" required>
+          <p class="note">Entering a precise location helps generate more accurate results.</p>
         </div>
         
+        <!-- Marriage Status -->
         <div class="form-group">
-          <div class="title">E-mail</div>
-          <input type="email" class="input-field" id="email" name="email" placeholder="이메일을 입력해주세요" required>
-          <p class="note">결과 안내를 위한 이메일 주소입니다.</p>
+          <div class="title">Marriage Status</div>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="marriageStatus" value="single" required>
+              Single
+            </label>
+            <label>
+              <input type="radio" name="marriageStatus" value="married" required>
+              Married
+            </label>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <div class="title">Email</div>
+          <input type="email" class="input-field" id="email" name="email" placeholder="Please enter your email" required>
+          <p class="note">We will send the result to this email address.</p>
         </div>
         
-        <p class="note" style="text-align: center; margin-top: 15px;">신청 즉시 결과를 확인하실 수 있습니다.</p>
+        <p class="note" style="text-align: center; margin-top: 15px;">You will receive your reading 1-2 days after you submit the form.</p>
       </form>
       
       <!-- PayPal 결제 폼 (메인 폼과 분리) -->
