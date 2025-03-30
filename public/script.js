@@ -1,4 +1,4 @@
-// 년도 옵션 생성 (1920년부터 현재 연도까지)
+// ------ 생년월일/시간 옵션 생성 ------ 
 const yearSelect = document.getElementById('year');
 const currentYear = new Date().getFullYear();
 for (let year = currentYear; year >= 1920; year--) {
@@ -8,7 +8,6 @@ for (let year = currentYear; year >= 1920; year--) {
   yearSelect.appendChild(option);
 }
 
-// 월 옵션 생성
 const monthSelect = document.getElementById('month');
 for (let month = 1; month <= 12; month++) {
   const option = document.createElement('option');
@@ -17,7 +16,6 @@ for (let month = 1; month <= 12; month++) {
   monthSelect.appendChild(option);
 }
 
-// 일 옵션 생성 (선택한 월의 마지막 날짜 기준)
 function updateDays() {
   const daySelect = document.getElementById('day');
   const selectedYear = parseInt(yearSelect.value, 10) || currentYear;
@@ -36,7 +34,6 @@ yearSelect.addEventListener('change', updateDays);
 monthSelect.addEventListener('change', updateDays);
 updateDays();
 
-// 시간 옵션 생성
 const hourSelect = document.getElementById('hour');
 for (let hour = 0; hour < 24; hour++) {
   const option = document.createElement('option');
@@ -45,7 +42,6 @@ for (let hour = 0; hour < 24; hour++) {
   hourSelect.appendChild(option);
 }
 
-// 분 옵션 생성 (1분 간격)
 const minuteSelect = document.getElementById('minute');
 for (let minute = 0; minute < 60; minute++) {
   const option = document.createElement('option');
@@ -53,10 +49,37 @@ for (let minute = 0; minute < 60; minute++) {
   option.textContent = `${minute}`;
   minuteSelect.appendChild(option);
 }
+
 // ------ 출생지 자동완성 기능 ------ 
 const birthLocationInput = document.getElementById('birthLocation');
 const suggestionBox = document.createElement('ul');
 suggestionBox.id = 'location-suggestions';
+
+// 스타일 바로 삽입 (불릿 제거 + 디자인)
+const style = document.createElement('style');
+style.textContent = `
+  #location-suggestions {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: white;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+  }
+  #location-suggestions li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  #location-suggestions li:hover {
+    background-color: #333;
+  }
+`;
+document.head.appendChild(style);
+
 birthLocationInput.parentElement.style.position = 'relative';
 birthLocationInput.parentElement.appendChild(suggestionBox);
 
@@ -108,10 +131,8 @@ document.addEventListener('click', function (e) {
   }
 });
 
-// 폼 유효성 검사
-// 모든 필드가 올바르게 입력되었는지 확인하는 함수
+// ------ 폼 유효성 검사 + 제출 처리 ------ 
 function validateForm() {
-  // 입력값 앞뒤 공백 제거
   const name = document.getElementById('name').value.trim();
   const year = document.getElementById('year').value.trim();
   const month = document.getElementById('month').value.trim();
@@ -122,60 +143,34 @@ function validateForm() {
   const marriageStatus = document.querySelector('input[name="marriageStatus"]:checked');
   const email = document.getElementById('email').value.trim();
 
-  if (!name) {
-    alert('Please enter your name.');
+  if (!name || !year || !month || !day || !hour || !minute || !birthLocation || !marriageStatus || !email) {
+    alert('모든 필드를 정확히 입력해주세요.');
     return false;
   }
-  if (!year || !month || !day) {
-    alert('Please select your birth date.');
-    return false;
-  }
-  if (!hour || !minute) {
-    alert('Please select your birth time.');
-    return false;
-  }
-  if (!birthLocation) {
-    alert('Please enter your birth location.');
-    return false;
-  }
-  if (!marriageStatus) {
-    alert('Please select your marriage status.');
-    return false;
-  }
-  if (!email) {
-    alert('Please enter your email.');
-    return false;
-  }
-  
   return true;
 }
 
-// 일반 폼 제출 이벤트
 document.getElementById('astrologyForm').addEventListener('submit', function(event) {
   event.preventDefault();
-  
   if (!validateForm()) return;
-  
+
   const formData = {
     name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`, // 대문자 D 사용
-    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`, // 대문자 T 사용
+    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
+    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
     birthLocation: document.getElementById('birthLocation').value.trim(),
-    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '',
+    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked').value,
     email: document.getElementById('email').value.trim()
   };
-  
+
   console.log("수집된 데이터:", JSON.stringify(formData));
 
-  // 쿼리 스트링 생성: 각 필드를 URL 인코딩하여 추가합니다.
   const queryString = Object.keys(formData)
-  .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`)
-  .join('&');
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`)
+    .join('&');
 
-  // confirmation 페이지로 이동할 때 쿼리 스트링을 붙여 전달합니다.
   window.location.href = `confirmation.html?${queryString}`;
-  
-  // Google Apps Script 웹 앱 URL을 실제 배포된 URL로 변경하세요
+
   fetch('https://script.google.com/macros/s/AKfycbzp5bSntkBP-rdUK-Mmx1JtpcZowGJyA8Q6XmGMwXElyGCW6QB33B8UecaST2Iot66D/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -185,39 +180,27 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   .then(text => {
     try {
       const data = JSON.parse(text);
-      console.log("Server response:", data);
       alert(data.message || 'Data has been successfully saved.');
     } catch (e) {
-      console.error("Response parse error:", e);
-      alert('Request was successful, but there was a problem processing the response.');
+      alert('응답 처리 중 문제가 발생했습니다.');
     }
   })
   .catch(error => {
-    console.error("Error while sending data:", error);
-    alert("An error occurred while sending data.");
+    alert("데이터 전송 중 오류가 발생했습니다.");
   });
 });
 
-// PayPal 결제 폼 제출 이벤트
-document.querySelector('.paypal-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  
+function handlePayPalPopup() {
+  // 1) 폼 유효성 검사
   if (!validateForm()) return;
-  
+
+  // 2) (선택) 서버나 구글 스크립트로 먼저 데이터 전송
   const formData = {
     name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`, // 대문자 D 사용
-    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`, // 대문자 T 사용
-    birthLocation: document.getElementById('birthLocation').value.trim(),
-    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '',
-    email: document.getElementById('email').value.trim()
+    // ...
   };
-  
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
-  
-  // 클릭 이벤트에서 즉시 새 창 열기 (팝업 차단 방지)
-  const paypalWindow = window.open('', '_blank');
-  
+
   fetch('https://0z3b4ewt1j.execute-api.ap-southeast-2.amazonaws.com/vedastar_web_proxy', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -227,19 +210,23 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   .then(text => {
     try {
       const data = JSON.parse(text);
-      console.log("Server response:", data);
       alert(data.message || 'Data has been successfully saved.');
-      // After saving data, redirect to PayPal
-      paypalWindow.location.href = 'https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8';
+      // 3) 팝업 창 열기
+      openPayPalWindow();
     } catch (e) {
-      console.error("Response parse error:", e);
-      alert('Request was successful, but there was a problem processing the response.');
-      paypalWindow.close(); // Close on error
+      alert('응답 처리 중 문제가 발생했습니다.');
     }
   })
   .catch(error => {
-    console.error("Error while sending data:", error);
-    alert("An error occurred while sending data.");
-    paypalWindow.close(); // Close on error
+    alert("데이터 전송 중 오류가 발생했습니다.");
   });
-});
+}
+
+function openPayPalWindow() {
+  // 원하는 크기로 팝업 창 열기
+  const url = "https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8";
+  const windowName = "PayPalWindow";
+  const specs = "width=600,height=800,scrollbars=yes,resizable=yes";
+
+  window.open(url, windowName, specs);
+}
