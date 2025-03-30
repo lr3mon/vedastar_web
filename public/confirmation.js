@@ -1,47 +1,45 @@
-// 예시로 URL 쿼리 파라미터를 통해 전달된 고객 정보를 표시하는 코드입니다.
-// 실제 구현 시, 전달 방식에 따라 수정하시면 됩니다.
-
+// URL 쿼리 파라미터를 파싱하는 함수
 function getQueryParams() {
-    const params = {};
-    const queryString = window.location.search.substring(1);
-    const queries = queryString.split("&");
-    queries.forEach(function(query) {
-      const [key, value] = query.split("=");
-      if(key) {
-        params[decodeURIComponent(key)] = decodeURIComponent(value || "");
-      }
-    });
-    return params;
-  }
-  
-  function displayUserInfo() {
-    const params = getQueryParams();
-    const userInfoDiv = document.getElementById("userInfo");
-    
-    // 예시: 이름, 성별, 생년월일, 태어난 시간, 장소, 연락처 정보를 표시합니다.
-    const infoItems = [
-      { label: "이름", value: params.name || "미입력" },
-      { label: "성별", value: params.gender || "미입력" },
-      { label: "생년월일", value: params.birthdate || "미입력" },
-      { label: "양력/음력", value: params.calendar || "미입력" },
-      { label: "태어난 시간", value: params.birthtime || "미입력" },
-      { label: "태어난 장소", value: params.birthplace || "미입력" },
-      { label: "연락처", value: params.phone || "미입력" }
-    ];
-  
-    let html = "<ul>";
-    infoItems.forEach(item => {
-      html += `<li><strong>${item.label}:</strong> ${item.value}</li>`;
-    });
-    html += "</ul>";
-  
-    userInfoDiv.innerHTML = html;
-  }
-  
-  document.getElementById("goHome").addEventListener("click", function() {
-    // 홈 페이지로 이동 (예시로 index.html로 이동)
-    window.location.href = "index.html";
+  const params = {};
+  const queryString = window.location.search.substring(1);
+  const queries = queryString.split("&");
+  queries.forEach(function(query) {
+    const [key, value] = query.split("=");
+    if (key) {
+      params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+    }
   });
+  return params;
+}
   
-  // 페이지 로드 시 고객 정보 표시
-  displayUserInfo();
+// 고객 정보를 페이지에 표시하는 함수
+function displayUserInfo() {
+  const params = getQueryParams();
+  const userInfoDiv = document.getElementById("userInfo");
+  
+  // 예시: 이름, 생년월일, 생시, 출생지, 결혼 여부, 이메일 정보를 표시합니다.
+  const infoItems = [
+    { label: "이름", value: params.name || "미입력" },
+    { label: "생년월일", value: params.birthDate || "미입력" },
+    { label: "생시", value: params.birthTime || "미입력" },
+    { label: "출생지", value: params.birthLocation || "미입력" },
+    { label: "결혼 여부", value: params.marriageStatus || "미입력" },
+    { label: "이메일", value: params.email || "미입력" }
+  ];
+
+  let html = "<ul>";
+  infoItems.forEach(item => {
+    html += `<li><strong>${item.label}:</strong> ${item.value}</li>`;
+  });
+  html += "</ul>";
+
+  userInfoDiv.innerHTML = html;
+}
+  
+// "홈으로 이동" 버튼 클릭 시 index.html로 이동하는 이벤트 핸들러
+document.getElementById("goHome").addEventListener("click", function() {
+  window.location.href = "index.html";
+});
+  
+// 페이지 로드 시 고객 정보를 표시
+displayUserInfo();

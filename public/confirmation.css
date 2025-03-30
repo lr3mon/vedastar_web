@@ -1,77 +1,87 @@
-/* 기본 레이아웃 및 스타일 */
+/* 기본 레이아웃 및 폰트 설정 */
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  .container {
-    max-width: 480px;
-    margin: 20px auto;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  .header {
-    background-color: #6b38fb;
-    color: #fff;
-    text-align: center;
-    padding: 15px 0;
-  }
-  
-  .header h1 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: normal;
-  }
-  
-  .content {
-    padding: 20px;
-  }
-  
-  .content h2 {
-    color: #6b38fb;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  
-  .user-info {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  .content h3 {
-    margin-top: 30px;
-    color: #333;
-  }
-  
-  .content p {
-    font-size: 15px;
-    color: #555;
-    margin: 15px 0;
-    text-align: center;
-  }
-  
-  .home-btn {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: #6b38fb;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .home-btn:hover {
-    background-color: #5a2de0;
-  }
+  font-family: 'Kaisei Decol', 'Noto Sans KR', sans-serif; /* 폰트 설정 */
+  background-color: #ffffff; /* 배경색 흰색 */
+  margin: 0;
+  padding: 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 컨테이너 영역: 페이지 중앙 정렬 및 최대 너비 설정 */
+.container {
+  max-width: 480px;
+  margin: 20px auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 영역: 배경색, 텍스트 정렬 및 패딩 설정 */
+.header {
+  background-color: #6b38fb;
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
+}
+
+/* 헤더 제목 스타일 */
+.header h1 {
+  margin: 0;
+  font-size: 24px; /* 글씨 크기 약간 키움 */
+  font-weight: normal;
+}
+
+/* 메인 컨텐츠 영역: 내부 여백 설정 */
+.content {
+  padding: 20px;
+}
+
+/* 메인 컨텐츠 제목 스타일 */
+.content h2 {
+  color: #6b38fb;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* 사용자 정보 표시 영역 스타일 */
+.user-info {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+/* 추가 제목 스타일 (예: 하위 제목) */
+.content h3 {
+  margin-top: 30px;
+  color: #333;
+}
+
+/* 본문 텍스트 스타일 */
+.content p {
+  font-size: 15px;
+  color: #555;
+  margin: 15px 0;
+  text-align: center;
+}
+
+/* 홈 버튼 스타일 */
+.home-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #6b38fb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* 홈 버튼 호버 스타일 */
+.home-btn:hover {
+  background-color: #5a2de0;
+}
