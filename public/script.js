@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear();
 for (let year = currentYear; year >= 1920; year--) {
   const option = document.createElement('option');
   option.value = year;
-  option.textContent = `${year}년`;
+  option.textContent = `${year}`;
   yearSelect.appendChild(option);
 }
 
@@ -13,7 +13,7 @@ const monthSelect = document.getElementById('month');
 for (let month = 1; month <= 12; month++) {
   const option = document.createElement('option');
   option.value = month;
-  option.textContent = `${month}월`;
+  option.textContent = `${month}`;
   monthSelect.appendChild(option);
 }
 
@@ -24,11 +24,11 @@ function updateDays() {
   const selectedMonth = parseInt(monthSelect.value, 10) || 1;
   const lastDay = new Date(selectedYear, selectedMonth, 0).getDate();
 
-  daySelect.innerHTML = '<option value="" disabled selected>일</option>';
+  daySelect.innerHTML = '<option value="" disabled selected>Day</option>';
   for (let day = 1; day <= lastDay; day++) {
     const option = document.createElement('option');
     option.value = day;
-    option.textContent = `${day}일`;
+    option.textContent = `${day}`;
     daySelect.appendChild(option);
   }
 }
@@ -41,7 +41,7 @@ const hourSelect = document.getElementById('hour');
 for (let hour = 0; hour < 24; hour++) {
   const option = document.createElement('option');
   option.value = hour;
-  option.textContent = `${hour}시`;
+  option.textContent = `${hour}`;
   hourSelect.appendChild(option);
 }
 
@@ -50,9 +50,63 @@ const minuteSelect = document.getElementById('minute');
 for (let minute = 0; minute < 60; minute++) {
   const option = document.createElement('option');
   option.value = minute;
-  option.textContent = `${minute}분`;
+  option.textContent = `${minute}`;
   minuteSelect.appendChild(option);
 }
+// ------ 출생지 자동완성 기능 ------ 
+const birthLocationInput = document.getElementById('birthLocation');
+const suggestionBox = document.createElement('ul');
+suggestionBox.id = 'location-suggestions';
+birthLocationInput.parentElement.style.position = 'relative';
+birthLocationInput.parentElement.appendChild(suggestionBox);
+
+let debounceTimeout = null;
+
+birthLocationInput.addEventListener('input', function () {
+  clearTimeout(debounceTimeout);
+  const query = this.value.trim();
+  if (query.length < 2) {
+    suggestionBox.style.display = 'none';
+    return;
+  }
+
+  debounceTimeout = setTimeout(() => {
+    fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=5&namePrefix=${query}`, {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '72f3dc7a7emsh17ff300e26ea489p157b22jsn9231b1d4ad8c',
+        'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      suggestionBox.innerHTML = '';
+      if (data.data.length === 0) {
+        suggestionBox.style.display = 'none';
+        return;
+      }
+      data.data.forEach(city => {
+        const li = document.createElement('li');
+        li.textContent = `${city.city}, ${city.country}`;
+        li.addEventListener('click', () => {
+          birthLocationInput.value = li.textContent;
+          suggestionBox.style.display = 'none';
+        });
+        suggestionBox.appendChild(li);
+      });
+      suggestionBox.style.display = 'block';
+    })
+    .catch(err => {
+      console.error('자동완성 오류:', err);
+    });
+  }, 300);
+});
+
+document.addEventListener('click', function (e) {
+  if (!birthLocationInput.contains(e.target) && !suggestionBox.contains(e.target)) {
+    suggestionBox.style.display = 'none';
+  }
+});
 
 // 폼 유효성 검사
 // 모든 필드가 올바르게 입력되었는지 확인하는 함수
@@ -127,16 +181,16 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   .then(text => {
     try {
       const data = JSON.parse(text);
-      console.log("서버 응답:", data);
-      alert(data.message || '데이터가 성공적으로 저장되었습니다.');
+      console.log("Server response:", data);
+      alert(data.message || 'Data has been successfully saved.');
     } catch (e) {
-      console.error("응답 파싱 오류:", e);
-      alert('요청은 성공했지만 응답을 처리하는 데 문제가 있습니다.');
+      console.error("Response parse error:", e);
+      alert('Request was successful, but there was a problem processing the response.');
     }
   })
   .catch(error => {
-    console.error("데이터 전송 중 오류 발생:", error);
-    alert("데이터 전송 중 오류가 발생했습니다.");
+    console.error("Error while sending data:", error);
+    alert("An error occurred while sending data.");
   });
 });
 
@@ -169,20 +223,19 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   .then(text => {
     try {
       const data = JSON.parse(text);
-      console.log("서버 응답:", data);
-      alert(data.message || '데이터가 성공적으로 저장되었습니다.');
-      
-      // 데이터 저장 후 PayPal 결제 페이지로 이동
+      console.log("Server response:", data);
+      alert(data.message || 'Data has been successfully saved.');
+      // After saving data, redirect to PayPal
       paypalWindow.location.href = 'https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8';
     } catch (e) {
-      console.error("응답 파싱 오류:", e);
-      alert('요청은 성공했지만 응답을 처리하는 데 문제가 있습니다.');
-      paypalWindow.close(); // 에러 발생 시 창 닫기
+      console.error("Response parse error:", e);
+      alert('Request was successful, but there was a problem processing the response.');
+      paypalWindow.close(); // Close on error
     }
   })
   .catch(error => {
-    console.error("데이터 전송 중 오류 발생:", error);
-    alert("데이터 전송 중 오류가 발생했습니다.");
-    paypalWindow.close(); // 오류 발생 시 창 닫기
+    console.error("Error while sending data:", error);
+    alert("An error occurred while sending data.");
+    paypalWindow.close(); // Close on error
   });
 });

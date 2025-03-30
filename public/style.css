@@ -169,3 +169,8 @@ body {
   line-height: 1.25rem;
   cursor: pointer;
 }
+
+/* Change text color for specific input fields */
+#name, #birthLocation, #email {
+  color: #ffffff;  /* Adjust this color value as needed */
+}
