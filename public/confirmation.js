@@ -19,12 +19,12 @@ function displayUserInfo() {
   
   // 예시: 이름, 생년월일, 생시, 출생지, 결혼 여부, 이메일 정보를 표시합니다.
   const infoItems = [
-    { label: "이름", value: params.name || "미입력" },
-    { label: "생년월일", value: params.birthDate || "미입력" },
-    { label: "생시", value: params.birthTime || "미입력" },
-    { label: "출생지", value: params.birthLocation || "미입력" },
-    { label: "결혼 여부", value: params.marriageStatus || "미입력" },
-    { label: "이메일", value: params.email || "미입력" }
+    { label: "Name", value: params.name || "Not provided" },
+    { label: "Birth Date", value: params.birthDate || "Not provided" },
+    { label: "Birth Time", value: params.birthTime || "Not provided" },
+    { label: "Birth Location", value: params.birthLocation || "Not provided" },
+    { label: "Marriage Status", value: params.marriageStatus || "Not provided" },
+    { label: "Email", value: params.email || "Not provided" }
   ];
 
   let html = "<ul>";
