@@ -229,23 +229,29 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
 // PayPal 결제 폼 제출 이벤트
 document.querySelector('.paypal-form').addEventListener('submit', function(event) {
   event.preventDefault();
-  
+
   if (!validateForm()) return;
-  
+
   const formData = {
     name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`, // 대문자 D 사용
-    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`, // 대문자 T 사용
+    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
+    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
     birthLocation: document.getElementById('birthLocation').value.trim(),
     marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '',
     email: document.getElementById('email').value.trim()
   };
-  
+
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
-  
-  // 클릭 이벤트에서 즉시 새 창 열기 (팝업 차단 방지)
-  const paypalWindow = window.open('', '_blank');
-  
+
+  // PayPal 모달 크기 (500x700 정도의 모달 느낌 창)
+  const width = 500;
+  const height = 700;
+  const left = (screen.width - width) / 2;
+  const top = (screen.height - height) / 2;
+
+  // 즉시 PayPal 새 창(모달 크기)을 미리 열어두기
+  const paypalWindow = window.open('', 'paypalModal', `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`);
+
   fetch('https://0z3b4ewt1j.execute-api.ap-southeast-2.amazonaws.com/vedastar_web_proxy', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -257,18 +263,18 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
       const data = JSON.parse(text);
       console.log("Server response:", data);
       alert(data.message || 'Data has been successfully saved.');
-      // After saving data, redirect to PayPal
+      // 데이터 전송 후 PayPal 결제 페이지로 이동
       paypalWindow.location.href = 'https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8';
     } catch (e) {
       console.error("Response parse error:", e);
       alert('Request was successful, but there was a problem processing the response.');
-      paypalWindow.close(); // Close on error
+      paypalWindow.close();
     }
   })
   .catch(error => {
     console.error("Error while sending data:", error);
     alert("An error occurred while sending data.");
-    paypalWindow.close(); // Close on error
+    paypalWindow.close();
   });
 });
 
