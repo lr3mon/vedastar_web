@@ -111,41 +111,37 @@ document.addEventListener('click', function (e) {
 // 폼 유효성 검사
 // 모든 필드가 올바르게 입력되었는지 확인하는 함수
 function validateForm() {
-  const name = document.getElementById('name').value;
-  const year = document.getElementById('year').value;
-  const month = document.getElementById('month').value;
-  const day = document.getElementById('day').value;
-  const hour = document.getElementById('hour').value;
-  const minute = document.getElementById('minute').value;
-  const birthLocation = document.getElementById('birthLocation').value;
+  // 입력값 앞뒤 공백 제거
+  const name = document.getElementById('name').value.trim();
+  const year = document.getElementById('year').value.trim();
+  const month = document.getElementById('month').value.trim();
+  const day = document.getElementById('day').value.trim();
+  const hour = document.getElementById('hour').value.trim();
+  const minute = document.getElementById('minute').value.trim();
+  const birthLocation = document.getElementById('birthLocation').value.trim();
   const marriageStatus = document.querySelector('input[name="marriageStatus"]:checked');
-  const email = document.getElementById('email').value;
-  
+  const email = document.getElementById('email').value.trim();
+
   if (!name) {
     alert('Please enter your name.');
     return false;
   }
-  
   if (!year || !month || !day) {
     alert('Please select your birth date.');
     return false;
   }
-  
   if (!hour || !minute) {
     alert('Please select your birth time.');
     return false;
   }
-  
   if (!birthLocation) {
     alert('Please enter your birth location.');
     return false;
   }
-  
   if (!marriageStatus) {
     alert('Please select your marriage status.');
     return false;
   }
-  
   if (!email) {
     alert('Please enter your email.');
     return false;
@@ -161,12 +157,12 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
   if (!validateForm()) return;
   
   const formData = {
-    name: document.getElementById('name').value,
-    birthdate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    birthtime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
-    birthLocation: document.getElementById('birthLocation').value,
-    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked').value,
-    email: document.getElementById('email').value
+    name: document.getElementById('name').value.trim(),
+    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
+    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
+    birthLocation: document.getElementById('birthLocation').value.trim(), // 입력 필드의 id가 "birthLocation"인지 확인
+    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '', // 라디오 버튼 그룹에서 선택된 값
+    email: document.getElementById('email').value.trim()
   };
   
   console.log("수집된 데이터:", JSON.stringify(formData));
@@ -201,12 +197,12 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   if (!validateForm()) return;
   
   const formData = {
-    name: document.getElementById('name').value,
-    birthdate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    birthtime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
-    birthLocation: document.getElementById('birthLocation').value,
-    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked').value,
-    email: document.getElementById('email').value
+    name: document.getElementById('name').value.trim(),
+    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
+    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
+    birthLocation: document.getElementById('birthLocation').value.trim(), // 입력 필드의 id가 "birthLocation"인지 확인
+    marriageStatus: document.querySelector('input[name="marriageStatus"]:checked') ? document.querySelector('input[name="marriageStatus"]:checked').value : '', // 라디오 버튼 그룹에서 선택된 값
+    email: document.getElementById('email').value.trim()
   };
   
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
