@@ -174,3 +174,32 @@ body {
 #name, #birthLocation, #email {
   color: #ffffff;  /* Adjust this color value as needed */
 }
+
+/* 자동완성 추천 리스트 스타일 */
+#location-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  color: black;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+#location-suggestions li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#location-suggestions li:hover {
+  background-color: #f2f2f2;
+}

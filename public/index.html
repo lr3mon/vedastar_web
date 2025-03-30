@@ -27,14 +27,14 @@
   </style>
 </head>
 <body>
-  <!-- Hero Section -->
+  <!-- Hero Section 시작 -->
   <div class="hero-section">
     <div class="hero-overlay">
       <h1>Welcome to Vedastar</h1>
       <p>Scroll down to explore your destiny</p>
     </div>
   </div>
-  
+  <!-- Hero Section 끝 -->
   <div class="container">
     <div class="scroll-container">
       <p class="scroll-text">Where do you stand right now on your life’s journey?</p>
@@ -86,7 +86,7 @@
               <option value="" disabled selected>Minute</option>
             </select>
           </div>
-          <p class="note">Providing accurate information will help generate more precise and insightful results.</p>
+          <p class="note">If you’re not sure, select 12 AM.</p>
         </div>
         
         <!-- Birth Location -->
@@ -118,16 +118,33 @@
           <p class="note">We will send the result to this email address.</p>
         </div>
         
-        <p class="note" style="text-align: center; margin-top: 15px;">You will receive your reading 1-2 days after you submit the form.</p>
+        <p class="note" style="text-align: center; margin-top: 15px;">You will receive your reading 3-5 days after you submit the form.</p>
       </form>
       
-      <!-- PayPal 결제 (기존 폼 제거 후, 새로 만듦) -->
-      <form class="paypal-form" onsubmit="return false;">
-        <input class="pp-button" type="button" value="Buy Scroll Now" onclick="handlePayPalPopup()" />
+      <!-- PayPal 결제 폼 (메인 폼과 분리) -->
+      <form action="https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8" method="post" target="_blank" class="paypal-form">
+        <input class="pp-button" type="submit" value="Buy Scroll Now" />
       </form>
     </div>
   </div>
 
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const scrollTexts = document.querySelectorAll('.scroll-text');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    scrollTexts.forEach(element => {
+      observer.observe(element);
+    });
+  });
+  </script>
+  
   <script src="script.js"></script>
 </body>
 </html>
