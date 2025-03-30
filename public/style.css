@@ -14,7 +14,7 @@ body {
 }
 .hero-section {
   height: 100vh; /* 전체 화면 높이 */
-  background: url('path/to/hero-image.jpg') no-repeat center center/cover; /* 배경 이미지 설정, 실제 이미지 경로로 변경하세요 */
+  background: url('assets/images/vedastarLogo.png') no-repeat center center/cover; /* 배경 이미지 설정, 실제 이미지 경로로 변경하세요 */
   position: relative;
 }
 
