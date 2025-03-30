@@ -1,4 +1,6 @@
-// ------ 생년월일/시간 옵션 생성 ------ 
+// script.js
+
+// ------ 생년월일/시간 옵션 생성 ------
 const yearSelect = document.getElementById('year');
 const currentYear = new Date().getFullYear();
 for (let year = currentYear; year >= 1920; year--) {
@@ -50,12 +52,12 @@ for (let minute = 0; minute < 60; minute++) {
   minuteSelect.appendChild(option);
 }
 
-// ------ 출생지 자동완성 기능 ------ 
+// ------ 출생지 자동완성 기능 ------
 const birthLocationInput = document.getElementById('birthLocation');
 const suggestionBox = document.createElement('ul');
 suggestionBox.id = 'location-suggestions';
 
-// 스타일 바로 삽입 (불릿 제거 + 디자인)
+// 간단한 스타일 삽입
 const style = document.createElement('style');
 style.textContent = `
   #location-suggestions {
@@ -104,7 +106,7 @@ birthLocationInput.addEventListener('input', function () {
     .then(res => res.json())
     .then(data => {
       suggestionBox.innerHTML = '';
-      if (data.data.length === 0) {
+      if (!data || !data.data || data.data.length === 0) {
         suggestionBox.style.display = 'none';
         return;
       }
@@ -131,7 +133,23 @@ document.addEventListener('click', function (e) {
   }
 });
 
-// ------ 폼 유효성 검사 + 제출 처리 ------ 
+// ------ 스크롤 텍스트 애니메이션 ------
+document.addEventListener('DOMContentLoaded', function () {
+  const scrollTexts = document.querySelectorAll('.scroll-text');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  scrollTexts.forEach(element => {
+    observer.observe(element);
+  });
+});
+
+// ------ 폼 유효성 검사 ------
 function validateForm() {
   const name = document.getElementById('name').value.trim();
   const year = document.getElementById('year').value.trim();
@@ -150,10 +168,11 @@ function validateForm() {
   return true;
 }
 
-document.getElementById('astrologyForm').addEventListener('submit', function(event) {
-  event.preventDefault();
+// ------ PayPal 팝업 열기 ------
+function handlePayPalPopup() {
   if (!validateForm()) return;
 
+  // 1) formData 수집
   const formData = {
     name: document.getElementById('name').value.trim(),
     birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
@@ -162,15 +181,9 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
     marriageStatus: document.querySelector('input[name="marriageStatus"]:checked').value,
     email: document.getElementById('email').value.trim()
   };
+  console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
 
-  console.log("수집된 데이터:", JSON.stringify(formData));
-
-  const queryString = Object.keys(formData)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(formData[key])}`)
-    .join('&');
-
-  window.location.href = `confirmation.html?${queryString}`;
-
+  // 2) 먼저 구글 앱스 스크립트(또는 서버)로 전송
   fetch('https://script.google.com/macros/s/AKfycbzp5bSntkBP-rdUK-Mmx1JtpcZowGJyA8Q6XmGMwXElyGCW6QB33B8UecaST2Iot66D/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -184,49 +197,21 @@ document.getElementById('astrologyForm').addEventListener('submit', function(eve
     } catch (e) {
       alert('응답 처리 중 문제가 발생했습니다.');
     }
+    // 3) 구글 시트 저장 완료 후 PayPal 팝업
+    openPayPalWindow();
   })
   .catch(error => {
     alert("데이터 전송 중 오류가 발생했습니다.");
-  });
-});
-
-function handlePayPalPopup() {
-  // 1) 폼 유효성 검사
-  if (!validateForm()) return;
-
-  // 2) (선택) 서버나 구글 스크립트로 먼저 데이터 전송
-  const formData = {
-    name: document.getElementById('name').value.trim(),
-    // ...
-  };
-  console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
-
-  fetch('https://0z3b4ewt1j.execute-api.ap-southeast-2.amazonaws.com/vedastar_web_proxy', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
-  })
-  .then(response => response.text())
-  .then(text => {
-    try {
-      const data = JSON.parse(text);
-      alert(data.message || 'Data has been successfully saved.');
-      // 3) 팝업 창 열기
-      openPayPalWindow();
-    } catch (e) {
-      alert('응답 처리 중 문제가 발생했습니다.');
-    }
-  })
-  .catch(error => {
-    alert("데이터 전송 중 오류가 발생했습니다.");
+    console.error(error);
   });
 }
 
 function openPayPalWindow() {
-  // 원하는 크기로 팝업 창 열기
+  // PayPal 결제 링크. 원하는 크기로 새 창 열기
   const url = "https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8";
   const windowName = "PayPalWindow";
   const specs = "width=600,height=800,scrollbars=yes,resizable=yes";
 
+  // 새 창 열기
   window.open(url, windowName, specs);
 }
