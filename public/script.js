@@ -177,7 +177,7 @@ function handlePayPalPopup() {
   // 1) formData 수집
   const formData = {
     name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
+    birthDate: `${document.getElementById('month').value}/${document.getElementById('day').value}/${document.getElementById('year').value}`,
     birthTime: `${document.getElementById('hour').value.padStart(2, '0')}:${document.getElementById('minute').value.padStart(2, '0')}`,
     birthLocation: document.getElementById('birthLocation').value.trim(),
     marriageStatus: document.getElementById('marriageStatus').value,
@@ -216,7 +216,7 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   
   const formData = {
     name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
+    birthDate: `${document.getElementById('month').value}/${document.getElementById('day').value}/${document.getElementById('year').value}`,
     birthTime: `${document.getElementById('hour').value.padStart(2, '0')}:${document.getElementById('minute').value.padStart(2, '0')}`,
     birthLocation: document.getElementById('birthLocation').value.trim(),
     marriageStatus: document.getElementById('marriageStatus').value,
