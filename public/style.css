@@ -116,6 +116,12 @@ body {
   font-size: 14px;               /* 할인 배지 폰트 크기 */
 }
 
+.discount-arrow {
+  color: red;             /* 화살표 색상을 빨간색으로 지정 */
+  font-size: 20px;         /* 적절한 크기로 지정 */
+  margin: 0 10px;         /* 좌우 여백 추가 */
+}
+
 /* visible 클래스가 추가되면 나타나도록 */
 .visible {
   opacity: 1;
