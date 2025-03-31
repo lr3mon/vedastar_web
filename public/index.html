@@ -101,19 +101,14 @@
           <p class="note">Entering a precise location helps generate more accurate results.</p>
         </div>
         
-        <!-- Marriage Status -->
+        <!-- Marriage Status (드롭다운 형태) -->
         <div class="form-group">
           <div class="title">Marriage Status</div>
-          <div class="radio-group">
-            <label>
-              <input type="radio" name="marriageStatus" value="single" required>
-              Single
-            </label>
-            <label>
-              <input type="radio" name="marriageStatus" value="married" required>
-              Married
-            </label>
-          </div>
+          <select id="marriageStatus" name="marriageStatus" required>
+            <option value="" disabled selected>Select your status</option>
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+          </select>
         </div>
 
         <!-- Email -->
