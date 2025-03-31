@@ -42,7 +42,7 @@ body {
   opacity: 0;
   transition: opacity 1s ease-in-out;
   margin: 50px 0;
-  font-size: 10px; /* 폰트 크기를 1.2em으로 줄임 */
+  font-size: 15px !important; 
 }
 
 /* 입력 폼 스타일 */
@@ -125,12 +125,23 @@ body {
 }
 .birthdate-container select,
 .birthtime-container select {
+  -webkit-appearance: none; /* 사파리, 크롬 등 웹킷 계열 브라우저에서 기본 UI 제거 */
+  -moz-appearance: none;    /* 파이어폭스에서 기본 UI 제거 */
+  appearance: none;         /* 표준 속성 */
   flex: 1;
-  padding: 12px;
+  
+  /* 동일한 높이를 강제하기 위해 min-height나 line-height 등을 명시적으로 지정 */
+  min-height: 40px;
+  line-height: 1.4;
+  padding: 10px;
+  
+  /* 이미 존재하는 스타일을 참고하여 추가 */
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #444444;
-  color: white;
+  color: #A9A9A9;
+  font-size: 16px; /* 크롬, 사파리 등에서 동일한 폰트 크기 적용 */
+  box-sizing: border-box;
 }
 .birthdate-container select:focus,
 .birthtime-container select:focus {
@@ -147,7 +158,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #444444;
-  color: white;
+  color: #A9A9A9;
 }
 .birthtime-container select:focus {
   border-color: #C5A654;
