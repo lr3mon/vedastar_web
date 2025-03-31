@@ -178,9 +178,9 @@ function handlePayPalPopup() {
   const formData = {
     name: document.getElementById('name').value.trim(),
     birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
+    birthTime: `${document.getElementById('hour').value.padStart(2, '0')}:${document.getElementById('minute').value.padStart(2, '0')}`,
     birthLocation: document.getElementById('birthLocation').value.trim(),
-    marriageStatus: document.getElementById('marriageStatus').value,  // 변경됨: select 요소 사용
+    marriageStatus: document.getElementById('marriageStatus').value,
     email: document.getElementById('email').value.trim()
   };
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
@@ -217,9 +217,9 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   const formData = {
     name: document.getElementById('name').value.trim(),
     birthDate: `${document.getElementById('year').value}-${document.getElementById('month').value}-${document.getElementById('day').value}`,
-    birthTime: `${document.getElementById('hour').value}:${document.getElementById('minute').value}`,
+    birthTime: `${document.getElementById('hour').value.padStart(2, '0')}:${document.getElementById('minute').value.padStart(2, '0')}`,
     birthLocation: document.getElementById('birthLocation').value.trim(),
-    marriageStatus: document.getElementById('marriageStatus').value,  // 변경됨: select 요소 사용
+    marriageStatus: document.getElementById('marriageStatus').value,
     email: document.getElementById('email').value.trim()
   };
   
