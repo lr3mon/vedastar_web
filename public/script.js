@@ -164,7 +164,7 @@ function validateForm() {
   const email = document.getElementById('email').value.trim();
 
   if (!name || !year || !month || !day || !hour || !minute || !birthLocation || !marriageStatus || !email) {
-    alert('모든 필드를 정확히 입력해주세요.');
+    alert('Please fill in all fields accurately.');
     return false;
   }
   return true;
