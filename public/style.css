@@ -45,6 +45,13 @@ body {
   font-size: 15px !important; 
 }
 
+.scroll-image {
+  display: block;
+  margin: 20px auto; /* 문단과 이미지 사이 여백 조절 */
+  max-width: 80%;    /* 이미지 최대 너비 설정 */
+  height: auto;
+}
+
 /* 입력 폼 스타일 */
 .form-container {
   padding: 20px;
