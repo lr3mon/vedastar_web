@@ -160,7 +160,7 @@ function validateForm() {
   const hour = document.getElementById('hour').value.trim();
   const minute = document.getElementById('minute').value.trim();
   const birthLocation = document.getElementById('birthLocation').value.trim();
-  const marriageStatus = document.querySelector('input[name="marriageStatus"]:checked');
+  const marriageStatus = document.querySelector('marriageStatus"').value.trim();  // 변경됨: select 요소 사용
   const email = document.getElementById('email').value.trim();
 
   if (!name || !year || !month || !day || !hour || !minute || !birthLocation || !marriageStatus || !email) {
