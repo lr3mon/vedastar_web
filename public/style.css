@@ -47,14 +47,14 @@ body {
 .form-title {
   text-align: center;
   margin-bottom: 25px;
-  color: #333;
+  color: #C5A654;
   font-size: 22px;
   font-weight: bold;
 }
 .form-subtitle {
   text-align: center;
   margin-bottom: 30px;
-  color: #777;
+  color: #C5A654;
   font-size: 14px;
 }
 .form-group {
@@ -64,7 +64,7 @@ body {
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 8px;
-  color: #333;
+  color: #C5A654;
 }
 .input-field {
   width: 100%;
@@ -110,7 +110,7 @@ body {
 }
 .note {
   font-size: 13px;
-  color: #888;
+  color: #C5A654;
   margin-top: 5px;
 }
 .birthdate-container {
