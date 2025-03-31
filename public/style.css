@@ -82,10 +82,38 @@ body {
 }
 
 .product-title {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
   color: #C5A654;
   text-align: center;
+}
+
+/* 제품 가격 영역 스타일 */
+.product-price-container {
+  text-align: center;          /* 전체 컨테이너를 가운데 정렬 */
+  margin: 10px 0;              /* 위아래 여백 */
+}
+
+.original-price {
+  text-decoration: line-through;  /* 원래 가격에 취소선 적용 */
+  color: #999;                    /* 원래 가격의 텍스트 색상 */
+  font-size: 18px;                /* 원래 가격 폰트 크기 */
+  margin-right: 10px;             /* 오른쪽 여백 */
+}
+
+.discounted-price {
+  color: #C5A654;                /* 할인된 가격의 강조 색상 */
+  font-size: 24px;               /* 할인된 가격 폰트 크기 */
+  font-weight: bold;             /* 굵은 글씨 */
+  margin-right: 10px;            /* 오른쪽 여백 */
+}
+
+.discount-badge {
+  background-color: #C5A654;     /* 할인 배지 배경색 */
+  color: white;                  /* 할인 배지 텍스트 색상 */
+  padding: 5px 8px;              /* 내부 여백 */
+  border-radius: 12px;           /* 둥근 모서리 */
+  font-size: 14px;               /* 할인 배지 폰트 크기 */
 }
 
 /* visible 클래스가 추가되면 나타나도록 */
