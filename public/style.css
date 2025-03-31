@@ -38,18 +38,29 @@ body {
   font-size: 1.5em;
 }
 
+/* 텍스트 요소 초기 상태 */
 .scroll-text {
   opacity: 0;
   transition: opacity 1s ease-in-out;
   margin: 50px 0;
-  font-size: 15px !important; 
+  font-size: 15px !important;
 }
 
+/* 이미지 요소 초기 상태 */
 .scroll-image {
+  opacity: 0;  /* 초기에는 보이지 않음 */
+  transition: opacity 1s ease-in-out;
   display: block;
-  margin: 20px auto; /* 문단과 이미지 사이 여백 조절 */
-  max-width: 80%;    /* 이미지 최대 너비 설정 */
+  margin: 20px auto;
+  max-width: 80%;
   height: auto;
+  border: 2px solid rgba(197, 166, 84, 0.7);
+  border-radius: 4px;
+}
+
+/* visible 클래스가 추가되면 나타나도록 */
+.visible {
+  opacity: 1;
 }
 
 /* 입력 폼 스타일 */

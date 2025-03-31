@@ -136,16 +136,17 @@ document.addEventListener('click', function (e) {
 
 // ------ 스크롤 텍스트 애니메이션 ------
 document.addEventListener('DOMContentLoaded', function () {
-  const scrollTexts = document.querySelectorAll('.scroll-text');
+  // .scroll-text와 .scroll-image 모두 선택
+  const scrollElements = document.querySelectorAll('.scroll-text, .scroll-image');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+        entry.target.classList.add('visible');  // 요소가 보이면 visible 클래스 추가
       }
     });
   }, { threshold: 0.1 });
   
-  scrollTexts.forEach(element => {
+  scrollElements.forEach(element => {
     observer.observe(element);
   });
 });
