@@ -61,7 +61,7 @@ body {
 .product-container {
   display: flex;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   flex-direction: column;
   padding: 20px;
 }
