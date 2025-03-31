@@ -58,6 +58,36 @@ body {
   border-radius: 4px;
 }
 
+.product-container {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* 텍스트 요소 초기 상태 */
+.static-text {
+  font-size: 15px !important;
+}
+
+/* 이미지 요소 초기 상태 */
+.product-image {
+  display: block;
+  margin: 20px auto;
+  max-width: 80%;
+  height: auto;
+  border: 2px solid rgba(197, 166, 84, 0.7);
+  border-radius: 4px;
+}
+
+.product-title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #C5A654;
+  text-align: center;
+}
+
 /* visible 클래스가 추가되면 나타나도록 */
 .visible {
   opacity: 1;
