@@ -170,9 +170,28 @@ function validateForm() {
   return true;
 }
 
+// 로딩 모달을 표시하는 함수
+function showLoading() {
+  const modal = document.getElementById('loadingModal');
+  if (modal) {
+    modal.style.display = 'block'; // 모달 보이기
+  }
+}
+
+// 로딩 모달을 숨기는 함수
+function hideLoading() {
+  const modal = document.getElementById('loadingModal');
+  if (modal) {
+    modal.style.display = 'none'; // 모달 숨기기
+  }
+}
+
 // ------ PayPal 결제 처리 함수 (AWS로 데이터 전송 후 팝업으로 PayPal 결제 창 열기) ------
 function handlePayPalPayment() {
   if (!validateForm()) return;
+  
+  // 로딩 모달 표시
+  showLoading();
   
   // 1) formData 수집
   const formData = {
@@ -204,13 +223,15 @@ function handlePayPalPayment() {
       console.error("응답 파싱 오류:", e);
       alert('요청은 성공했으나 응답 처리에 문제가 있습니다.');
     }
-    // 3) AWS로 데이터 전송 후 팝업으로 PayPal 결제 창 열기
+    // 서버 응답 후 로딩 모달 숨기기 및 PayPal 팝업 열기
+    hideLoading();
     openPayPalWindow();
   })
   .catch(error => {
     console.error("데이터 전송 중 오류 발생:", error);
     alert("데이터 전송 중 오류가 발생했습니다.");
-    // 오류 발생 시에도 PayPal 창을 팝업으로 열도록 선택할 수 있습니다.
+    // 오류 발생 시에도 로딩 모달 숨기고 팝업 열기
+    hideLoading();
     openPayPalWindow();
   });
 }
