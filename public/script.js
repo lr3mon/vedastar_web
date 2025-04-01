@@ -170,53 +170,16 @@ function validateForm() {
   return true;
 }
 
-// ------ PayPal 팝업 열기 ------
-function handlePayPalPopup() {
+// ------ PayPal 결제 처리 함수 (AWS로 데이터 전송 후 팝업으로 PayPal 결제 창 열기) ------
+function handlePayPalPayment() {
   if (!validateForm()) return;
-
+  
   // 1) formData 수집
   const formData = {
     name: document.getElementById('name').value.trim(),
+    // 생년월일 형식: MM/DD/YYYY (두 자리 숫자 적용)
     birthDate: `${document.getElementById('month').value.padStart(2, '0')}/${document.getElementById('day').value.padStart(2, '0')}/${document.getElementById('year').value}`,
-    birthTime: `${document.getElementById('hour').value.padStart(2, '0')}:${document.getElementById('minute').value.padStart(2, '0')}`,
-    birthLocation: document.getElementById('birthLocation').value.trim(),
-    marriageStatus: document.getElementById('marriageStatus').value,
-    email: document.getElementById('email').value.trim()
-  };
-  console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
-
-  // 2) 먼저 구글 앱스 스크립트(또는 서버)로 전송
-  fetch('https://script.google.com/macros/s/AKfycbzp5bSntkBP-rdUK-Mmx1JtpcZowGJyA8Q6XmGMwXElyGCW6QB33B8UecaST2Iot66D/exec', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
-  })
-  .then(response => response.text())
-  .then(text => {
-    try {
-      const data = JSON.parse(text);
-      alert(data.message || 'Data has been successfully saved.');
-    } catch (e) {
-      alert('응답 처리 중 문제가 발생했습니다.');
-    }
-    // 3) 구글 시트 저장 완료 후 PayPal 팝업
-    openPayPalWindow();
-  })
-  .catch(error => {
-    alert("데이터 전송 중 오류가 발생했습니다.");
-    console.error(error);
-  });
-}
-
-// PayPal 결제 폼 제출 이벤트
-document.querySelector('.paypal-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  
-  if (!validateForm()) return;
-  
-  const formData = {
-    name: document.getElementById('name').value.trim(),
-    birthDate: `${document.getElementById('month').value.padStart(2, '0')}/${document.getElementById('day').value.padStart(2, '0')}/${document.getElementById('year').value}`,
+    // 생시 형식: HH:MM (두 자리 숫자 적용)
     birthTime: `${document.getElementById('hour').value.padStart(2, '0')}:${document.getElementById('minute').value.padStart(2, '0')}`,
     birthLocation: document.getElementById('birthLocation').value.trim(),
     marriageStatus: document.getElementById('marriageStatus').value,
@@ -225,9 +188,7 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
   
-  // 클릭 이벤트에서 즉시 새 창 열기 (팝업 차단 방지)
-  const paypalWindow = window.open('', '_blank');
-  
+  // 2) AWS로 데이터 전송 (fetch 요청)
   fetch('https://0z3b4ewt1j.execute-api.ap-southeast-2.amazonaws.com/vedastar_web_proxy', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -237,28 +198,34 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   .then(text => {
     try {
       const data = JSON.parse(text);
-      console.log("Server response:", data);
+      console.log("서버 응답:", data);
       alert(data.message || 'Data has been successfully saved.');
-      // After saving data, redirect to PayPal
-      paypalWindow.location.href = 'https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8';
     } catch (e) {
-      console.error("Response parse error:", e);
-      alert('Request was successful, but there was a problem processing the response.');
-      paypalWindow.close(); // Close on error
+      console.error("응답 파싱 오류:", e);
+      alert('요청은 성공했으나 응답 처리에 문제가 있습니다.');
     }
+    // 3) AWS로 데이터 전송 후 팝업으로 PayPal 결제 창 열기
+    openPayPalWindow();
   })
   .catch(error => {
-    console.error("Error while sending data:", error);
-    alert("An error occurred while sending data.");
-    paypalWindow.close(); // Close on error
+    console.error("데이터 전송 중 오류 발생:", error);
+    alert("데이터 전송 중 오류가 발생했습니다.");
+    // 오류 발생 시에도 PayPal 창을 팝업으로 열도록 선택할 수 있습니다.
+    openPayPalWindow();
   });
+}
+
+// ------ PayPal 결제 폼 제출 이벤트 핸들러 ------ 
+document.querySelector('.paypal-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  handlePayPalPayment();
 });
 
+// ------ PayPal 팝업 창 열기 함수 ------ 
 function openPayPalWindow() {
-  // 원하는 크기로 팝업 창 열기
+  // 팝업 창의 크기 및 옵션 지정
   const url = "https://www.paypal.com/ncp/payment/GEZKSUPY9WSZ8";
-  const windowName = "PayPalWindow";
+  const windowName = "PayPalPopup";
   const specs = "width=600,height=800,scrollbars=yes,resizable=yes";
-
   window.open(url, windowName, specs);
 }
