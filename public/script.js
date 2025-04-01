@@ -224,9 +224,7 @@ document.querySelector('.paypal-form').addEventListener('submit', function(event
   };
   
   console.log("PayPal 버튼 클릭 시 수집된 데이터:", JSON.stringify(formData));
-  
-  // 클릭 이벤트에서 즉시 새 창 열기 (팝업 차단 방지)
-  const paypalWindow = window.open('', '_blank');
+
   
   fetch('https://0z3b4ewt1j.execute-api.ap-southeast-2.amazonaws.com/vedastar_web_proxy', {
     method: 'POST',
