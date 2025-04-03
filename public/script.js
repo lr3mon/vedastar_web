@@ -52,6 +52,31 @@ for (let minute = 0; minute < 60; minute++) {
   minuteSelect.appendChild(option);
 }
 
+// 카운트다운 업데이트 함수
+function updateCountdown() {
+  var now = new Date();
+  // 현재 해의 4월 30일 (월은 0부터 시작하므로 April은 3)
+  var target = new Date(now.getFullYear(), 3, 30, 0, 0, 0);
+  // 만약 오늘 날짜가 이미 4월 30일 이후라면, 내년 4월 30일로 설정
+  if (now > target) {
+    target = new Date(now.getFullYear() + 1, 3, 30, 0, 0, 0);
+  }
+  
+  var diff = target - now;
+  var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  var minutes = Math.floor((diff / (1000 * 60)) % 60);
+  var totalSeconds = diff / 1000;
+  var seconds = (totalSeconds % 60).toFixed(1); // 소수점 한 자리까지 표시
+  
+  document.getElementById("countdown").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+}
+
+// 페이지 로드 시 바로 업데이트하고, 100ms마다 갱신
+updateCountdown();
+setInterval(updateCountdown, 100);
+
 // ------ 출생지 자동완성 기능 ------
 const birthLocationInput = document.getElementById('birthLocation');
 const suggestionBox = document.createElement('ul');

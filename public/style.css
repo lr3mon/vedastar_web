@@ -72,13 +72,25 @@ body {
 }
 
 /* 이미지 요소 초기 상태 */
-.product-image {
+.landing-image {
   display: block;
-  margin: 20px auto;
-  max-width: 80%;
-  height: auto;
-  border: 2px solid rgba(197, 166, 84, 0.7);
-  border-radius: 4px;
+  max-width: auto; /* 입력폼과 동일한 최대 너비 */
+  width: 100%;
+  margin: 0 auto;   /* 가운데 정렬 */
+}
+
+.d-day-title {
+  font-size: 20px;
+  color: #C5A654;                /* D-day 텍스트 색상 */
+  font-weight: bold;
+  text-align: center !important;           /* 가운데 정렬 */
+}
+
+#countdown {
+  font-size: 20px;
+  color: #fff;                /* 남은 시간 텍스트 색상 */
+  font-weight: bold;
+  text-align: center;         /* 가운데 정렬 */
 }
 
 .product-title {
