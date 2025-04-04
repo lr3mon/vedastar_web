@@ -319,3 +319,11 @@ body {
 #location-suggestions li:hover {
   background-color: #f2f2f2;
 }
+
+/* 이미지 요소 초기 상태 */
+.Review-image {
+  display: block;
+  max-width: auto; /* 입력폼과 동일한 최대 너비 */
+  width: 100%;
+  margin: 0 auto;   /* 가운데 정렬 */
+}
